@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Database.h"
 using namespace std;
 
 void printMenu() {
@@ -57,7 +58,7 @@ int handleChoice() {
 }
 
 int main() {
+    Database db;
     handleChoice();
-
     return 0;
 }

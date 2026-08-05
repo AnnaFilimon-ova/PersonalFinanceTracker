@@ -1,0 +1,3 @@
+/Users/annafilimonova/Desktop/FinanceTracker/build/CMakeFiles/FinanceTracker.dir
+/Users/annafilimonova/Desktop/FinanceTracker/build/CMakeFiles/edit_cache.dir
+/Users/annafilimonova/Desktop/FinanceTracker/build/CMakeFiles/rebuild_cache.dir
