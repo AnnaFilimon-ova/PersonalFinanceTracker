@@ -812,4 +812,6 @@ CMakeFiles/FinanceTracker.dir/main.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/stack.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/print \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h \
-  /Users/annafilimonova/Desktop/FinanceTracker/Database.h
+  /Users/annafilimonova/Desktop/FinanceTracker/Database.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sqlite3.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/os/availability.h

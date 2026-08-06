@@ -2,6 +2,7 @@
 #include "Database.h"
 using namespace std;
 
+//Prints the action menu.
 void printMenu() {
     cout << "==== Finance Tracker ====" << endl;
     cout << "1. Add expenses" << endl;
@@ -11,10 +12,10 @@ void printMenu() {
     cout << "Enter action: ";
 }
 
-void addExpenses() {
+//adds expenses to the db.
+void addExpenses(Database& database) {
     double expense = 0.0;
     int category = 0;
-    cout << "==== Categories ====" << endl;
     vector<string> categories = {
         "Transport",
         "Shopping",
@@ -30,6 +31,7 @@ void addExpenses() {
         "Internet"
     };
 
+    cout << "==== Categories ====" << endl;
     for (int i = 0; i < categories.size(); i++) {
         cout << i + 1 << ". " << categories[i] << '\n';
     }
@@ -37,17 +39,19 @@ void addExpenses() {
     cin >> category;
     cout << "Enter the expense: ";
     cin >> expense;
-    //TODO: database
+
+    database.addExpense(categories[category - 1], expense);
 }
 
-int handleChoice() {
+//controls future action.
+int handleChoice(Database& database) {
     int started_choice = 0;
     do {
         printMenu();
         cin >> started_choice;
 
         switch (started_choice) {
-            case 1: addExpenses(); break;
+            case 1: addExpenses(database); break;
             case 2: cout << "Add income" << endl; break;
             case 3: cout << "Report" << endl; break;
             case 4: cout << "Have a nice day!" << endl; break;
@@ -58,7 +62,9 @@ int handleChoice() {
 }
 
 int main() {
-    Database db;
-    handleChoice();
+    Database database("finance.db");
+    database.createTable();
+    cout << "Tracker started!" << endl;
+    handleChoice(database);
     return 0;
 }

@@ -4,6 +4,6 @@ set(CMAKE_CXX_STANDARD 17)
 find_package(SQLite3 REQUIRED)
 add_executable(FinanceTracker
     main.cpp
-        Database.cpp
+    Database.cpp
 )
 target_link_libraries(FinanceTracker PRIVATE SQLite3::SQLite3)

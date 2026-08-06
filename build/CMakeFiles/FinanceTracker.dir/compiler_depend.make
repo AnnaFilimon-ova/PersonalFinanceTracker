@@ -815,7 +815,8 @@ CMakeFiles/FinanceTracker.dir/Database.cpp.o: /Users/annafilimonova/Desktop/Fina
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/xlocale/_string.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/xlocale/_time.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/xlocale/_wchar.h \
-  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/xlocale/_wctype.h
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/xlocale/_wctype.h \
+  /Users/annafilimonova/Desktop/FinanceTracker/Database.h
 
 CMakeFiles/FinanceTracker.dir/main.cpp.o: /Users/annafilimonova/Desktop/FinanceTracker/main.cpp \
   /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/21/include/__stdarg___gnuc_va_list.h \
@@ -1520,12 +1521,14 @@ CMakeFiles/FinanceTracker.dir/main.cpp.o: /Users/annafilimonova/Desktop/FinanceT
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/malloc/_ptrcheck.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/math.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/nl_types.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/os/availability.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/pthread.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/pthread/pthread_impl.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/pthread/qos.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/pthread/sched.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/runetype.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sched.h \
+  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sqlite3.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stddef.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stdint.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/stdio.h \

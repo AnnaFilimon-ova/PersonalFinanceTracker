@@ -1,12 +1,18 @@
 #ifndef DATABASE_H
 #define DATABASE_H
+#include <sqlite3.h>
+#include <string>
 
 class Database {
-public:
-    Database();
-    ~Database();
 private:
-    void connect();
+    sqlite3* db;
+
+public:
+    Database(const std::string& filename);
+    ~Database();
+
+    void createTable();
+    void addExpense(const std::string& category, double amount);
 };
 
 #endif
