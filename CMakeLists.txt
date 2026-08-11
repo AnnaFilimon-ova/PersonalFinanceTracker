@@ -7,3 +7,21 @@ add_executable(FinanceTracker
     Database.cpp
 )
 target_link_libraries(FinanceTracker PRIVATE SQLite3::SQLite3)
+
+find_package(GTest REQUIRED)
+
+enable_testing()
+
+add_executable(DatabaseTest
+        tests/DatabaseTest.cpp
+        Database.cpp
+)
+
+target_link_libraries(DatabaseTest
+        PRIVATE
+        SQLite3::SQLite3
+        GTest::gtest_main
+)
+
+include(GoogleTest)
+gtest_discover_tests(DatabaseTest)

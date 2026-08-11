@@ -1,1 +1,0 @@
-/usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/FinanceTracker.dir/main.cpp.o CMakeFiles/FinanceTracker.dir/Database.cpp.o -o FinanceTracker  /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/libsqlite3.tbd
