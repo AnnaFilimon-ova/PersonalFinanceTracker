@@ -1,6 +1,6 @@
 #include <sqlite3.h>
 #include <gtest/gtest.h>
-#include "../Database.h"
+#include "Database.h"
 using namespace std;
 
 class DatabaseTest : public ::testing::Test {

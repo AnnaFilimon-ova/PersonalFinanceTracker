@@ -23,3 +23,36 @@ CREATE TABLE expenses (
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (category_id) REFERENCES categories(id)
 );
+
+CREATE TABLE incomes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    category_id INTEGER NOT NULL,
+    amount REAL NOT NULL CHECK (amount > 0),
+    date TEXT NOT NULL DEFAULT CURRENT_DATE,
+
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (category_id) REFERENCES categories(id)
+);
+
+INSERT INTO categories (name, type) VALUES
+    ('Transport', 'expense'),
+    ('Shopping', 'expense'),
+    ('Education', 'expense'),
+    ('Pets', 'expense'),
+    ('Beauty', 'expense'),
+    ('Gas', 'expense'),
+    ('Food', 'expense'),
+    ('Electronics', 'expense'),
+    ('Health', 'expense'),
+    ('Kids', 'expense'),
+    ('Travel', 'expense'),
+    ('Internet', 'expense'),
+    ('Salary', 'income'),
+    ('Freelancing', 'income'),
+    ('Business', 'income'),
+    ('Investments', 'income'),
+    ('Transfers', 'income'),
+    ('Scholarship', 'income'),
+    ('Refund', 'income'),
+    ('Other', 'income');

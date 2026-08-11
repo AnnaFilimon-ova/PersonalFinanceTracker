@@ -29,8 +29,13 @@ void Database::createTable() {
             amount REAL NOT NULL,
             date TEXT DEFAULT CURRENT_DATE
         );
+        CREATE TABLE IF NOT EXISTS incomes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            category TEXT NOT NULL,
+            amount REAL NOT NULL,
+            date TEXT DEFAULT CURRENT_DATE
+        );
     )";
-
     char* errorMessage = nullptr;
     if (sqlite3_exec(db, sql, nullptr, nullptr, &errorMessage) != SQLITE_OK) {
         std::cout << "SQL error: "
@@ -70,4 +75,26 @@ void Database::addExpense(const std::string& category, double amount) {
                   << sqlite3_errmsg(db) << std::endl;
     }
     sqlite3_finalize(statement);
+}
+
+void Database::addIncome(const std::string& category, double amount)
+{
+    const char* sql =
+        "INSERT INTO incomes (category, amount) VALUES (?, ?);";
+    sqlite3_stmt* stmt;
+    if (sqlite3_prepare_v2(db, sql, -1, &stmt, nullptr) != SQLITE_OK) {
+        std::cerr << "Prepare failed: "
+                  << sqlite3_errmsg(db) << std::endl;
+        return;
+    }
+    sqlite3_bind_text(stmt, 1, category.c_str(), -1, SQLITE_TRANSIENT);
+    sqlite3_bind_double(stmt, 2, amount);
+    if (sqlite3_step(stmt) != SQLITE_DONE) {
+        std::cerr << "Insert failed: "
+                  << sqlite3_errmsg(db) << std::endl;
+    }
+    else {
+        std::cout << "Income added!" << std::endl;
+    }
+    sqlite3_finalize(stmt);
 }

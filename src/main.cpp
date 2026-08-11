@@ -1,8 +1,10 @@
 #include <iostream>
+#include <vector>
+#include <string>
 #include "Database.h"
 using namespace std;
 
-//Prints the action menu.
+// Prints the action menu.
 void printMenu() {
     cout << "==== Finance Tracker ====" << endl;
     cout << "1. Add expenses" << endl;
@@ -12,10 +14,11 @@ void printMenu() {
     cout << "Enter action: ";
 }
 
-//adds expenses to the db.
+// Adds expenses to the database.
 void addExpenses(Database& database) {
     double expense = 0.0;
     int category = 0;
+
     vector<string> categories = {
         "Transport",
         "Shopping",
@@ -39,15 +42,15 @@ void addExpenses(Database& database) {
     cin >> category;
     cout << "Enter the expense: ";
     cin >> expense;
-
     database.addExpense(categories[category - 1], expense);
 }
 
-//adds incomes to the db.
+// Adds income to the database.
 void addIncomes(Database& database) {
     double income = 0.0;
-    int income_category = 0;
-    vector<string> income_categories = {
+    int category = 0;
+
+    vector<string> categories = {
         "Salary",
         "Freelancing",
         "Business",
@@ -57,32 +60,43 @@ void addIncomes(Database& database) {
         "Refund",
         "Other"
     };
+
     cout << "==== Categories ====" << endl;
-    for (int i = 0; i < income_categories.size(); i++) {
-        cout << i + 1 << ". " << income_categories[i] << '\n';
+    for (int i = 0; i < categories.size(); i++) {
+        cout << i + 1 << ". " << categories[i] << '\n';
     }
     cout << "Enter the category: ";
-    cin >> income_category;
+    cin >> category;
     cout << "Enter the income: ";
     cin >> income;
-
-    database.addIncome(income_categories[income_category - 1], income);
+    database.addIncome(categories[category - 1], income);
 }
 
-//controls future action.
+// Controls future actions.
 int handleChoice(Database& database) {
     int started_choice = 0;
+
     do {
         printMenu();
         cin >> started_choice;
 
         switch (started_choice) {
-            case 1: addExpenses(database); break;
-            case 2: addIncomes(database); break;
-            case 3: cout << "Report" << endl; break;
-            case 4: cout << "Have a nice day!" << endl; break;
-            default: cout << "Invalid choice.\n";
+            case 1:
+                addExpenses(database);
+                break;
+            case 2:
+                addIncomes(database);
+                break;
+            case 3:
+                cout << "Report" << endl;
+                break;
+            case 4:
+                cout << "Have a nice day!" << endl;
+                break;
+            default:
+                cout << "Invalid choice.\n";
         }
+
     } while (started_choice != 4);
     return 0;
 }
