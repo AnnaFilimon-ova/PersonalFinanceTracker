@@ -63,6 +63,27 @@ TEST_F(DatabaseTest, ExpenseCanBeInserted) {
     sqlite3_close(connection);
 }
 
+TEST_F(DatabaseTest, IncomeCanBeInserted) {
+    Database db(filename);
+
+    db.createTable();
+    db.addIncome("Other", 120);
+
+    sqlite3* connection = nullptr;
+    ASSERT_EQ(sqlite3_open(filename.c_str(), &connection), SQLITE_OK);
+
+    sqlite3_stmt* stmt = nullptr;
+    const char* sql =
+        "SELECT COUNT(*) FROM incomes; ";
+
+    ASSERT_EQ(sqlite3_prepare_v2(connection, sql, -1, &stmt, nullptr), SQLITE_OK);
+    ASSERT_EQ(sqlite3_step(stmt), SQLITE_ROW);
+    EXPECT_EQ(sqlite3_column_int(stmt, 0), 1);
+
+    sqlite3_finalize(stmt);
+    sqlite3_close(connection);
+}
+
 TEST_F(DatabaseTest, CorrectCategoryIsStored) {
     Database db(filename);
 
@@ -82,6 +103,30 @@ TEST_F(DatabaseTest, CorrectCategoryIsStored) {
     string category = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
 
     EXPECT_EQ(category, "Transport");
+
+    sqlite3_finalize(stmt);
+    sqlite3_close(connection);
+}
+
+TEST_F(DatabaseTest, CorrectCategoryIsStoredIncome) {
+    Database db(filename);
+
+    db.createTable();
+    db.addIncome("Salary", 50);
+
+    sqlite3* connection = nullptr;
+    ASSERT_EQ(sqlite3_open(filename.c_str(), &connection), SQLITE_OK);
+
+    sqlite3_stmt* stmt = nullptr;
+    const char* sql =
+        "SELECT category FROM incomes LIMIT 1; ";
+
+    ASSERT_EQ(sqlite3_prepare_v2(connection, sql, -1, &stmt, nullptr), SQLITE_OK);
+    ASSERT_EQ(sqlite3_step(stmt), SQLITE_ROW);
+
+    string category = reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
+
+    EXPECT_EQ(category, "Salary");
 
     sqlite3_finalize(stmt);
     sqlite3_close(connection);
@@ -119,6 +164,38 @@ TEST_F(DatabaseTest, CorrectAmountIsStored)
     sqlite3_close(connection);
 }
 
+TEST_F(DatabaseTest, CorrectAmountIsStoredIncome)
+{
+    Database db(filename);
+
+    db.createTable();
+    db.addIncome("Business", 99.99);
+
+    sqlite3* connection = nullptr;
+    ASSERT_EQ(sqlite3_open(filename.c_str(), &connection), SQLITE_OK);
+
+    sqlite3_stmt* stmt = nullptr;
+
+    const char* sql =
+        "SELECT amount FROM incomes LIMIT 1;";
+
+    ASSERT_EQ(
+        sqlite3_prepare_v2(connection, sql, -1, &stmt, nullptr),
+        SQLITE_OK
+    );
+
+    ASSERT_EQ(sqlite3_step(stmt), SQLITE_ROW);
+
+    EXPECT_NEAR(
+        sqlite3_column_double(stmt, 0),
+        99.99,
+        0.001
+    );
+
+    sqlite3_finalize(stmt);
+    sqlite3_close(connection);
+}
+
 TEST_F(DatabaseTest, MultipleExpenseCanBeInserted) {
     Database db(filename);
 
@@ -133,6 +210,29 @@ TEST_F(DatabaseTest, MultipleExpenseCanBeInserted) {
     sqlite3_stmt* stmt = nullptr;
     const char* sql =
         "SELECT COUNT(*) FROM expenses; ";
+
+    ASSERT_EQ(sqlite3_prepare_v2(connection, sql, -1, &stmt, nullptr), SQLITE_OK);
+    ASSERT_EQ(sqlite3_step(stmt), SQLITE_ROW);
+    EXPECT_EQ(sqlite3_column_int(stmt, 0), 3);
+
+    sqlite3_finalize(stmt);
+    sqlite3_close(connection);
+}
+
+TEST_F(DatabaseTest, MultipleIncomeCanBeInserted) {
+    Database db(filename);
+
+    db.createTable();
+    db.addIncome("Scholarship", 20);
+    db.addIncome("Refund", 40);
+    db.addIncome("Transfers", 60);
+
+    sqlite3* connection = nullptr;
+    ASSERT_EQ(sqlite3_open(filename.c_str(), &connection), SQLITE_OK);
+
+    sqlite3_stmt* stmt = nullptr;
+    const char* sql =
+        "SELECT COUNT(*) FROM incomes; ";
 
     ASSERT_EQ(sqlite3_prepare_v2(connection, sql, -1, &stmt, nullptr), SQLITE_OK);
     ASSERT_EQ(sqlite3_step(stmt), SQLITE_ROW);
