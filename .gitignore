@@ -1,5 +1,7 @@
 .idea/
+cmake-build-*/
 build/
-cmake-build-debug/
 *.db
+*.sqlite
+*.sqlite3
 .DS_Store

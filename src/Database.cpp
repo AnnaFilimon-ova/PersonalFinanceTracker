@@ -1,14 +1,21 @@
 #include <iostream>
 #include <sqlite3.h>
 #include "Database.h"
+#include <filesystem>
 
 Database::Database(const std::string& filename) {
-    if (sqlite3_open(filename.c_str(), &db) == SQLITE_OK) {
-        std::cout << "Database connected!" << std::endl;
-    } else {
-        std::cout << "Database connection failed: "
-                  << sqlite3_errmsg(db) << std::endl;
+    std::cout << "Database path: "
+              << std::filesystem::absolute(filename)
+              << '\n';
+    if (sqlite3_open(filename.c_str(), &db) != SQLITE_OK) {
+        std::cerr << "Database connection failed: "
+                  << sqlite3_errmsg(db)
+                  << std::endl;
+        sqlite3_close(db);
+        db = nullptr;
+        return;
     }
+    std::cout << "Database connected!" << std::endl;
 }
 
 Database::~Database() {
@@ -18,6 +25,11 @@ Database::~Database() {
 }
 
 void Database::createTable() {
+    if (db == nullptr) {
+        std::cerr << "Cannot create tables: database is not connected."
+                  << std::endl;
+        return;
+    }
     const char* sql = R"(
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -68,7 +80,7 @@ void Database::addExpense(const std::string& category, double amount) {
     sqlite3_bind_double(statement, 2, amount);
 
     if (sqlite3_step(statement) == SQLITE_DONE) {
-        std::cout << "Expense added!" << std::endl;
+        std::cout << " ";
     }
     else {
         std::cout << "Insert failed: "
@@ -92,9 +104,6 @@ void Database::addIncome(const std::string& category, double amount)
     if (sqlite3_step(stmt) != SQLITE_DONE) {
         std::cerr << "Insert failed: "
                   << sqlite3_errmsg(db) << std::endl;
-    }
-    else {
-        std::cout << "Income added!" << std::endl;
     }
     sqlite3_finalize(stmt);
 }

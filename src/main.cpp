@@ -102,9 +102,9 @@ int handleChoice(Database& database) {
 }
 
 int main() {
-    Database database("finance.db");
-    database.createTable();
+    Database database("database/finance.db");
     cout << "Tracker started!" << endl;
     handleChoice(database);
+    database.createTable();
     return 0;
 }

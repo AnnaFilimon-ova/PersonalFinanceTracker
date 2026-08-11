@@ -5,7 +5,7 @@
 
 class Database {
 private:
-    sqlite3* db;
+    sqlite3* db = nullptr;
 
 public:
     Database(const std::string& filename);

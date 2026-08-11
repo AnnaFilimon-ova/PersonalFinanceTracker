@@ -33,6 +33,12 @@ target_include_directories(DatabaseTest PRIVATE
 include
 )
 
+target_compile_options(FinanceTracker PRIVATE
+    -Wall
+    -Wextra
+    -Wpedantic
+)
+
 target_link_libraries(DatabaseTest
 PRIVATE
 SQLite3::SQLite3
