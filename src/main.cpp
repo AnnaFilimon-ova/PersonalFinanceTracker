@@ -43,7 +43,7 @@ void addExpenses(Database& database) {
     database.addExpense(categories[category - 1], expense);
 }
 
-//adds expenses to the db.
+//adds incomes to the db.
 void addIncomes(Database& database) {
     double income = 0.0;
     int income_category = 0;
@@ -66,7 +66,7 @@ void addIncomes(Database& database) {
     cout << "Enter the income: ";
     cin >> income;
 
-    database.addIncomes(income_categories[income_category - 1], income);
+    database.addIncome(income_categories[income_category - 1], income);
 }
 
 //controls future action.

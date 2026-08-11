@@ -13,6 +13,7 @@ public:
 
     void createTable();
     void addExpense(const std::string& category, double amount);
+    void addIncome(const std::string& income_category, double amount);
 };
 
 #endif
