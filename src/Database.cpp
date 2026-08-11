@@ -98,3 +98,81 @@ void Database::addIncome(const std::string& category, double amount)
     }
     sqlite3_finalize(stmt);
 }
+
+void Database::printReport() {
+    const char* expenseSql = R"(
+        SELECT category, amount, date
+        FROM expenses
+        WHERE strftime('%Y-%m', date) = strftime('%Y-%m', 'now');
+    )";
+
+    const char* incomeSql = R"(
+        SELECT category, amount, date
+        FROM incomes
+        WHERE strftime('%Y-%m', date) = strftime('%Y-%m', 'now');
+    )";
+
+    sqlite3_stmt* stmt;
+
+    double totalExpenses = 0.0;
+    double totalIncomes = 0.0;
+
+    if (sqlite3_prepare_v2(db, expenseSql, -1, &stmt, nullptr) != SQLITE_OK) {
+        std::cout << "Prepare failed: "
+                  << sqlite3_errmsg(db) << std::endl;
+        return;
+    }
+
+    std::cout << "\n===== Expenses this month =====\n";
+
+    while (sqlite3_step(stmt) == SQLITE_ROW) {
+        const char* category =
+            reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
+        double amount = sqlite3_column_double(stmt, 1);
+        const char* date =
+            reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
+
+        std::cout << category
+                  << " | " << amount
+                  << " | " << date
+                  << std::endl;
+        totalExpenses += amount;
+    }
+
+    sqlite3_finalize(stmt);
+
+    if (sqlite3_prepare_v2(db, incomeSql, -1, &stmt, nullptr) != SQLITE_OK) {
+        std::cout << "Prepare failed: "
+                  << sqlite3_errmsg(db) << std::endl;
+        return;
+    }
+
+    std::cout << "\n===== Income this month =====\n";
+
+    while (sqlite3_step(stmt) == SQLITE_ROW) {
+        const char* category =
+            reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0));
+
+        double amount = sqlite3_column_double(stmt, 1);
+
+        const char* date =
+            reinterpret_cast<const char*>(sqlite3_column_text(stmt, 2));
+
+        std::cout << category
+                  << " | " << amount
+                  << " | " << date
+                  << std::endl;
+
+        totalIncomes += amount;
+    }
+
+    sqlite3_finalize(stmt);
+
+    std::cout << "\n===== Summary =====\n";
+
+    std::cout << "Total income:   " << totalIncomes << std::endl;
+    std::cout << "Total expenses: " << totalExpenses << std::endl;
+    std::cout << "Balance:        "
+              << totalIncomes - totalExpenses
+              << std::endl;
+}

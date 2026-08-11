@@ -6,6 +6,7 @@ using namespace std;
 
 // Prints the action menu.
 void printMenu() {
+    cout << " " << endl;
     cout << "==== Finance Tracker ====" << endl;
     cout << "1. Add expenses" << endl;
     cout << "2. Add income" << endl;
@@ -34,6 +35,7 @@ void addExpenses(Database& database) {
         "Internet"
     };
 
+    cout << " " << endl;
     cout << "==== Categories ====" << endl;
     for (int i = 0; i < categories.size(); i++) {
         cout << i + 1 << ". " << categories[i] << '\n';
@@ -61,6 +63,7 @@ void addIncomes(Database& database) {
         "Other"
     };
 
+    cout << " " << endl;
     cout << "==== Categories ====" << endl;
     for (int i = 0; i < categories.size(); i++) {
         cout << i + 1 << ". " << categories[i] << '\n';
@@ -75,11 +78,9 @@ void addIncomes(Database& database) {
 // Controls future actions.
 int handleChoice(Database& database) {
     int started_choice = 0;
-
     do {
         printMenu();
         cin >> started_choice;
-
         switch (started_choice) {
             case 1:
                 addExpenses(database);
@@ -88,7 +89,7 @@ int handleChoice(Database& database) {
                 addIncomes(database);
                 break;
             case 3:
-                cout << "Report" << endl;
+                database.printReport();
                 break;
             case 4:
                 cout << "Have a nice day!" << endl;
@@ -96,7 +97,6 @@ int handleChoice(Database& database) {
             default:
                 cout << "Invalid choice.\n";
         }
-
     } while (started_choice != 4);
     return 0;
 }

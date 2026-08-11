@@ -14,6 +14,7 @@ public:
     void createTable();
     void addExpense(const std::string& category, double amount);
     void addIncome(const std::string& category, double amount);
+    void printReport();
 };
 
 #endif
