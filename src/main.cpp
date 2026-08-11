@@ -43,6 +43,32 @@ void addExpenses(Database& database) {
     database.addExpense(categories[category - 1], expense);
 }
 
+//adds expenses to the db.
+void addIncomes(Database& database) {
+    double income = 0.0;
+    int income_category = 0;
+    vector<string> income_categories = {
+        "Salary",
+        "Freelancing",
+        "Business",
+        "Investments",
+        "Transfers",
+        "Scholarship",
+        "Refund",
+        "Other"
+    };
+    cout << "==== Categories ====" << endl;
+    for (int i = 0; i < income_categories.size(); i++) {
+        cout << i + 1 << ". " << income_categories[i] << '\n';
+    }
+    cout << "Enter the category: ";
+    cin >> income_category;
+    cout << "Enter the income: ";
+    cin >> income;
+
+    database.addIncomes(income_categories[income_category - 1], income);
+}
+
 //controls future action.
 int handleChoice(Database& database) {
     int started_choice = 0;
@@ -52,7 +78,7 @@ int handleChoice(Database& database) {
 
         switch (started_choice) {
             case 1: addExpenses(database); break;
-            case 2: cout << "Add income" << endl; break;
+            case 2: addIncomes(database); break;
             case 3: cout << "Report" << endl; break;
             case 4: cout << "Have a nice day!" << endl; break;
             default: cout << "Invalid choice.\n";
