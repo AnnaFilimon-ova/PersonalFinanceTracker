@@ -42,6 +42,10 @@ void addExpenses(Database& database) {
     }
     cout << "Enter the category: ";
     cin >> category;
+    if (category < 1 || category > categories.size()) {
+        cout << "Invalid category.\n";
+        return;
+    }
     cout << "Enter the expense: ";
     cin >> expense;
     database.addExpense(categories[category - 1], expense);
@@ -70,6 +74,10 @@ void addIncomes(Database& database) {
     }
     cout << "Enter the category: ";
     cin >> category;
+    if (category < 1 || category > categories.size()) {
+        cout << "Invalid category.\n";
+        return;
+    }
     cout << "Enter the income: ";
     cin >> income;
     database.addIncome(categories[category - 1], income);
@@ -103,8 +111,8 @@ int handleChoice(Database& database) {
 
 int main() {
     Database database("database/finance.db");
+    database.createTable();
     cout << "Tracker started!" << endl;
     handleChoice(database);
-    database.createTable();
     return 0;
 }
